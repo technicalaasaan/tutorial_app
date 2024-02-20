@@ -23,7 +23,7 @@ function ClickEvents() {
         <SideNavBar />
         <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
           <div className="mainsection">
-            <h1>2. Click Events</h1>
+            <h1>Click Events</h1>
             <h4>(A) Normal Click Event</h4>
             <Stack spacing={2} direction="row">
               <Button variant="contained" onClick={handleClick}>Click Here!</Button>

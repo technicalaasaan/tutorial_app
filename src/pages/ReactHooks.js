@@ -28,7 +28,7 @@ function ReactHooks() {
         <SideNavBar />
         <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
           <div className="mainsection">
-            <h1>3. React Hooks</h1>
+            <h1>React Hooks</h1>
             <h4>(A) React Hooks USESTATE Increament & Decreament the values</h4>
             <Stack spacing={2} direction="row">
               <Button variant="contained" onClick={decrementFunction}>
