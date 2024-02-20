@@ -1,30 +1,33 @@
-import * as React from 'react';
-import { styled, useTheme } from '@mui/material/styles';
-import Box from '@mui/material/Box';
-import MuiDrawer from '@mui/material/Drawer';
-import MuiAppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import List from '@mui/material/List';
-import CssBaseline from '@mui/material/CssBaseline';
+import * as React from "react";
+import { styled, useTheme } from "@mui/material/styles";
+import Box from "@mui/material/Box";
+import MuiDrawer from "@mui/material/Drawer";
+import MuiAppBar from "@mui/material/AppBar";
+import Toolbar from "@mui/material/Toolbar";
+import List from "@mui/material/List";
+import CssBaseline from "@mui/material/CssBaseline";
 // import Typography from '@mui/material/Typography';
-import Divider from '@mui/material/Divider';
-import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
+import Divider from "@mui/material/Divider";
+import IconButton from "@mui/material/IconButton";
+import MenuIcon from "@mui/icons-material/Menu";
+import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
+import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+import ListItem from "@mui/material/ListItem";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
 
 // icons
-import BadgeIcon from '@mui/icons-material/Badge';
-import AdsClickIcon from '@mui/icons-material/AdsClick';
-import AttachmentIcon from '@mui/icons-material/Attachment';
-import ListAltIcon from '@mui/icons-material/ListAlt';
+import Dashboard from "@mui/icons-material/Dashboard";
+import ListAltIcon from "@mui/icons-material/ListAlt";
+import ExpandMore from "@mui/icons-material/ExpandMore";
+import ExpandLess from "@mui/icons-material/ExpandLess";
+import RemoveIcon from '@mui/icons-material/Remove';
 
 // Navigation
 import { useNavigate } from "react-router-dom";
+import { Collapse } from "@mui/material";
+// import { ExpandLess, ExpandMore } from "@mui/icons-material";
 
 const drawerWidth = 240;
 
@@ -59,17 +62,17 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 }));
 
 const AppBar = styled(MuiAppBar, {
-  shouldForwardProp: (prop) => prop !== 'open',
+  shouldForwardProp: (prop) => prop !== "open",
 })(({ theme, open }) => ({
   zIndex: theme.zIndex.drawer + 1,
-  transition: theme.transitions.create(['width', 'margin'], {
+  transition: theme.transitions.create(["width", "margin"], {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
   }),
   ...(open && {
     marginLeft: drawerWidth,
     width: `calc(100% - ${drawerWidth}px)`,
-    transition: theme.transitions.create(['width', 'margin'], {
+    transition: theme.transitions.create(["width", "margin"], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
     }),
@@ -96,13 +99,15 @@ const Drawer = styled(MuiDrawer, {
 // App Tilte
 
 SideNavBar.defaultProps = {
-  title: "React JS Tutotial 2024"
-}
+  title: "React JS Tutotial 2024",
+};
 
-export default function SideNavBar({title}) {
+export default function SideNavBar({ title }) {
   const theme = useTheme();
   const [open, setOpen] = React.useState(true);
   const navigate = useNavigate();
+
+  const [IsCollapse, setIsCollapse] = React.useState(false);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -112,9 +117,12 @@ export default function SideNavBar({title}) {
     setOpen(false);
   };
 
+  const handleCollapse = () => {
+    setIsCollapse(!IsCollapse);
+  };
+
   return (
     <Box sx={{ display: "flex" }}>
-
       <CssBaseline />
 
       <AppBar position="fixed" open={open}>
@@ -126,19 +134,18 @@ export default function SideNavBar({title}) {
             edge="start"
             sx={{
               marginRight: 5,
-              ...(open && { display: 'none' }),
+              ...(open && { display: "none" }),
             }}
           >
             <MenuIcon />
           </IconButton>
-          <div className='headername'>
+          <div className="headername">
             <h1>{title}</h1>
           </div>
         </Toolbar>
       </AppBar>
 
       <Drawer variant="permanent" open={open}>
-
         <DrawerHeader>
           <IconButton onClick={handleDrawerClose}>
             {theme.direction === "rtl" ? (
@@ -151,8 +158,14 @@ export default function SideNavBar({title}) {
 
         <Divider />
 
-        <List className='menulists'>
-          <ListItem disablePadding sx={{ display: "block" }} onClick={()=>{navigate("/")}}>
+        <List className="menulists">
+          <ListItem
+            disablePadding
+            sx={{ display: "block" }}
+            onClick={() => {
+              navigate("/");
+            }}
+          >
             <ListItemButton
               sx={{
                 minHeight: 48,
@@ -167,52 +180,20 @@ export default function SideNavBar({title}) {
                   justifyContent: "center",
                 }}
               >
-                <BadgeIcon />
+                <Dashboard />
               </ListItemIcon>
-              <ListItemText primary={"Name Change"} sx={{ opacity: open ? 1 : 0 }} />
+              <ListItemText
+                primary={"Introduction"}
+                sx={{ opacity: open ? 1 : 0 }}
+              />
             </ListItemButton>
           </ListItem>
-          <ListItem disablePadding sx={{ display: "block" }} onClick={()=>{navigate("/clickevents")}}>
-            <ListItemButton
-              sx={{
-                minHeight: 48,
-                justifyContent: open ? "initial" : "center",
-                px: 2.5,
-              }}
-            >
-              <ListItemIcon
-                sx={{
-                  minWidth: 0,
-                  mr: open ? 3 : "auto",
-                  justifyContent: "center",
-                }}
-              >
-                <AdsClickIcon />
-              </ListItemIcon>
-              <ListItemText primary={"Click Events"} sx={{ opacity: open ? 1 : 0 }} />
-            </ListItemButton>
-          </ListItem>
-          <ListItem disablePadding sx={{ display: "block" }} onClick={()=>{navigate("/reacthooks")}}>
-            <ListItemButton
-              sx={{
-                minHeight: 48,
-                justifyContent: open ? "initial" : "center",
-                px: 2.5,
-              }}
-            >
-              <ListItemIcon
-                sx={{
-                  minWidth: 0,
-                  mr: open ? 3 : "auto",
-                  justifyContent: "center",
-                }}
-              >
-                <AttachmentIcon />
-              </ListItemIcon>
-              <ListItemText primary={"React Hooks"} sx={{ opacity: open ? 1 : 0 }} />
-            </ListItemButton>
-          </ListItem>
-          <ListItem disablePadding sx={{ display: "block" }} onClick={()=>{navigate("/listsandkeys")}}>
+
+          <ListItem
+            disablePadding
+            sx={{ display: "block" }}
+            onClick={handleCollapse}
+          >
             <ListItemButton
               sx={{
                 minHeight: 48,
@@ -229,13 +210,163 @@ export default function SideNavBar({title}) {
               >
                 <ListAltIcon />
               </ListItemIcon>
-              <ListItemText primary={"Lists & Keys"} sx={{ opacity: open ? 1 : 0 }} />
+              <ListItemText
+                primary={"Basic Topics"}
+                sx={{ opacity: open ? 1 : 0 }}
+              />
+              {IsCollapse ? <ExpandLess /> : <ExpandMore />}
             </ListItemButton>
           </ListItem>
+
+          <Collapse in={IsCollapse} timeout="auto" unmountOnExit>
+            <ListItem
+              disablePadding
+              sx={{ display: "block" }}
+              onClick={() => {
+                navigate("/namechange");
+              }}
+            >
+              <ListItemButton
+                sx={{
+                  minHeight: 48,
+                  justifyContent: open ? "initial" : "center",
+                  px: 2.5,
+                }}
+              >
+                <ListItemIcon
+                  sx={{
+                    minWidth: 0,
+                    mr: open ? 3 : "auto",
+                    justifyContent: "center",
+                  }}
+                >
+                  <RemoveIcon/>
+                </ListItemIcon>
+                <ListItemText
+                  primary={"Name Change"}
+                  sx={{ opacity: open ? 1 : 0 }}
+                />
+              </ListItemButton>
+            </ListItem>
+            <ListItem
+              disablePadding
+              sx={{ display: "block" }}
+              onClick={() => {
+                navigate("/clickevents");
+              }}
+            >
+              <ListItemButton
+                sx={{
+                  minHeight: 48,
+                  justifyContent: open ? "initial" : "center",
+                  px: 2.5,
+                }}
+              >
+                <ListItemIcon
+                  sx={{
+                    minWidth: 0,
+                    mr: open ? 3 : "auto",
+                    justifyContent: "center",
+                  }}
+                >
+                   <RemoveIcon/>
+                </ListItemIcon>
+                <ListItemText
+                  primary={"Click Events"}
+                  sx={{ opacity: open ? 1 : 0 }}
+                />
+              </ListItemButton>
+            </ListItem>
+            <ListItem
+              disablePadding
+              sx={{ display: "block" }}
+              onClick={() => {
+                navigate("/reacthooks");
+              }}
+            >
+              <ListItemButton
+                sx={{
+                  minHeight: 48,
+                  justifyContent: open ? "initial" : "center",
+                  px: 2.5,
+                }}
+              >
+                <ListItemIcon
+                  sx={{
+                    minWidth: 0,
+                    mr: open ? 3 : "auto",
+                    justifyContent: "center",
+                  }}
+                >
+                   <RemoveIcon/>
+                </ListItemIcon>
+                <ListItemText
+                  primary={"React Hooks"}
+                  sx={{ opacity: open ? 1 : 0 }}
+                />
+              </ListItemButton>
+            </ListItem>
+            <ListItem
+              disablePadding
+              sx={{ display: "block" }}
+              onClick={() => {
+                navigate("/listsandkeys");
+              }}
+            >
+              <ListItemButton
+                sx={{
+                  minHeight: 48,
+                  justifyContent: open ? "initial" : "center",
+                  px: 2.5,
+                }}
+              >
+                <ListItemIcon
+                  sx={{
+                    minWidth: 0,
+                    mr: open ? 3 : "auto",
+                    justifyContent: "center",
+                  }}
+                >
+                   <RemoveIcon/>
+                </ListItemIcon>
+                <ListItemText
+                  primary={"Lists & Keys"}
+                  sx={{ opacity: open ? 1 : 0 }}
+                />
+              </ListItemButton>
+            </ListItem>
+            <ListItem
+              disablePadding
+              sx={{ display: "block" }}
+              onClick={() => {
+                navigate("/addinputsdynamically");
+              }}
+            >
+              <ListItemButton
+                sx={{
+                  minHeight: 48,
+                  justifyContent: open ? "initial" : "center",
+                  px: 2.5,
+                }}
+              >
+                <ListItemIcon
+                  sx={{
+                    minWidth: 0,
+                    mr: open ? 3 : "auto",
+                    justifyContent: "center",
+                  }}
+                >
+                   <RemoveIcon/>
+                </ListItemIcon>
+                <ListItemText
+                  primary={"Add/Delete Inputs"}
+                  sx={{ opacity: open ? 1 : 0 }}
+                />
+              </ListItemButton>
+            </ListItem>
+          </Collapse>
         </List>
-
       </Drawer>
-
     </Box>
   );
 }

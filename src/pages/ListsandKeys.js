@@ -45,7 +45,7 @@ function ListsandKeys() {
         <SideNavBar />
         <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
           <div className="mainsection">
-            <h1>4. Lists & Keys</h1>
+            <h1>Lists & Keys</h1>
             <h4>To do Lists</h4>
             <div className="todolist">
               {items.length ? (

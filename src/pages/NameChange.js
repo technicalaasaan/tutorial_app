@@ -15,7 +15,7 @@ function NameChange() {
         <SideNavBar />
         <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
           <div className="mainsection">
-            <h1>1. Name Change</h1>
+            <h1>Name Change</h1>
             <p>Let's {handleNameChange()} Money!</p>
           </div>
         </Box>

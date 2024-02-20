@@ -3,15 +3,26 @@
 body {
   font-family: Poppins !important;
 }
+li {
+  list-style: none;
+}
+h1 {
+  font-size: 20px;
+}
+h2 {
+  font-size: 16px;
+}
+a {
+  font-size: 14px;
+  text-decoration: none;
+}
+p {
+  font-size: 14px;
+}
 .mainsection {
   padding-top: 50px;
 }
-.mainsection h1 {
-  font-size: 18px;
-}
-.headername h1 {
-  font-size: 18px;
-}
+
 .css-i4bv87-MuiSvgIcon-root {
   font-size: 20px !important;
 }
@@ -22,4 +33,19 @@ body {
   font-family: Poppins !important;
   font-size: 13px !important;
   font-weight: 600 !important;
+}
+.listsec {
+  margin: 0;
+  padding: 0;
+}
+.listsec li {
+  margin-top: 10px;
+}
+.listsec li a i {
+  color: #1976d2;
+}
+
+.imagesec img{
+  max-width: 100%;
+  max-height: 100%;
 }
